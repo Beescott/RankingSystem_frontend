@@ -315,8 +315,21 @@ public class JSONObject {
 #endif
 								type = Type.NUMBER;
 							} catch(System.FormatException) {
-								type = Type.NULL;
-								Debug.LogWarning("improper JSON formatting:" + str);
+								if (str.Contains("."))
+									str = str.Replace('.', ',');
+								else
+									str = str.Replace(',', '.');
+								try {
+#if USEFLOAT
+									n = System.Convert.ToSingle(str);
+#else
+									n = System.Convert.ToDouble(str);				 
+#endif
+									type = Type.NUMBER;
+								} catch (System.FormatException) {
+									type = Type.NULL;
+									Debug.LogWarning("JSON Format wrong: " + str);
+								}
 							}
 							return;
 					}

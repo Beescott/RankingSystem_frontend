@@ -2,8 +2,11 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public struct ServerMessage
+namespace RankingSystem
 {
-    public string status;
-    public string message;
+    public struct ServerMessage
+    {
+        public string status;
+        public string message;
+    }
 }

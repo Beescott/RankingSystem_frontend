@@ -12,7 +12,7 @@ namespace RankingSystem
     public class NetworkController : MonoBehaviour
     {
         #region Singleton
-        private static NetworkController Instance = null;
+        public static NetworkController Instance = null;
 
         private void Awake()
         {
@@ -21,7 +21,7 @@ namespace RankingSystem
         #endregion
 
         // Action event called when the server sends a message to the client
-        public Action<string> OnServerMessage = delegate { };
+        public Action<ServerMessage> OnServerMessage = delegate { };
         public Action<List<PlayerScore>> OnServerPlayersUpdate = delegate { };
         private SocketIOComponent _socketComponent;
 
@@ -53,6 +53,16 @@ namespace RankingSystem
             _socketComponent.Emit("request_scores", new JSONObject(data));
         }
 
+        public void PushScore(string playerName, string score)
+        {
+            Debug.Log("Pushing score");
+            Dictionary<string, string> data = new Dictionary<string, string>();
+            data.Add("name", playerName);
+            data.Add("score", score);
+
+            _socketComponent.Emit("push_score", new JSONObject(data));
+        }
+
         #region Callbacks
         private void OnPongCallback(SocketIOEvent args)
         {
@@ -62,12 +72,9 @@ namespace RankingSystem
         private void OnEventStatusCallback(SocketIOEvent args)
         {
             ServerMessage serverMessage = JsonUtility.FromJson<ServerMessage>(args.data.ToString());
+            OnServerMessage(serverMessage);
 
-            // The server only sends a message when the status is not successfull
-            if (serverMessage.status != "success")
-            {
-                OnServerMessage(serverMessage.message);
-            }
+            Debug.Log(serverMessage.ToString());
         }
 
         private void OnSendPlayersCallback(SocketIOEvent args)

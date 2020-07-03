@@ -8,5 +8,10 @@ namespace RankingSystem
     {
         public string status;
         public string message;
+
+        public override string ToString()
+        {
+            return $"<color=blue>SERVER MESSAGE : {status}, {message}</color>";
+        }
     }
 }

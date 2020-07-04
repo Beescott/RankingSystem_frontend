@@ -63,8 +63,15 @@ public class RankingSystemEditor : Editor
         DrawUILine(Color.white, 1, 5);
         EditorGUILayout.PropertyField(_targetCanvas, new GUIContent("Targeted parent", "The transform which contains all the ranking system element (use entire canvas if you want font consistency)"));
         EditorGUILayout.PropertyField(_wantedNumberOfPlayers, new GUIContent("Number of wanted players", "If the specified int is less or equel to 0, or if it is higher than the database's current list of player, then returns the entire array"));
-        EditorGUILayout.PropertyField(_floatPrecision, new GUIContent("Float precision", "Number of digit after the comma"));
         
+        EditorGUI.BeginChangeCheck();
+        EditorGUILayout.PropertyField(_floatPrecision, new GUIContent("Float precision", "Number of digit after the comma"));
+        if (EditorGUI.EndChangeCheck())
+        {
+            serializedObject.ApplyModifiedProperties();
+            systemController.OnFloatPrecisionChange();
+        }
+
         EditorGUI.BeginChangeCheck();
         EditorGUILayout.PropertyField(_systemStyle, new GUIContent("Increasing or decreasing score"));
         if (EditorGUI.EndChangeCheck())

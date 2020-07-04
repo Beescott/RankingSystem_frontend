@@ -768,12 +768,12 @@ MonoBehaviour:
   websocketServerURL: ws://127.0.0.1:2222/socket.io/?EIO=4&transport=websocket
   lastEventStatus: 
   targetCanvas: {fileID: 1768066108}
-  fontToUse: {fileID: 12800000, guid: e96f32e986401cd49a60c10aaeb5bcac, type: 3}
+  fontToUse: {fileID: 10102, guid: 0000000000000000e000000000000000, type: 0}
   primaryColorUsers: []
   secondaryColorUsers: []
   primaryColor: {r: 0.13207549, g: 0.13207549, b: 0.13207549, a: 1}
   secondaryColor: {r: 0.3773585, g: 0.3773585, b: 0.3773585, a: 1}
-  wantedNumberOfPlayers: 10
+  wantedNumberOfPlayers: 0
   floatPrecision: 4
   systemStyle: 1
   rankElementPrefab: {fileID: 0}
@@ -1112,6 +1112,16 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.x
       value: 274
       objectReference: {fileID: 0}
+    - target: {fileID: 5081765329542700724, guid: 8d77fb51b9951f8479798d2e7e819f96,
+        type: 3}
+      propertyPath: m_FontData.m_Font
+      value: 
+      objectReference: {fileID: 10102, guid: 0000000000000000e000000000000000, type: 0}
+    - target: {fileID: 5081765329542700724, guid: 8d77fb51b9951f8479798d2e7e819f96,
+        type: 3}
+      propertyPath: m_FontData.m_LineSpacing
+      value: 1.22
+      objectReference: {fileID: 0}
     - target: {fileID: 5081765329721648523, guid: 8d77fb51b9951f8479798d2e7e819f96,
         type: 3}
       propertyPath: m_AnchoredPosition.y
@@ -1237,6 +1247,16 @@ PrefabInstance:
         type: 3}
       propertyPath: m_SizeDelta.x
       value: -17
+      objectReference: {fileID: 0}
+    - target: {fileID: 5081765330807334579, guid: 8d77fb51b9951f8479798d2e7e819f96,
+        type: 3}
+      propertyPath: m_FontData.m_Font
+      value: 
+      objectReference: {fileID: 10102, guid: 0000000000000000e000000000000000, type: 0}
+    - target: {fileID: 5081765330807334579, guid: 8d77fb51b9951f8479798d2e7e819f96,
+        type: 3}
+      propertyPath: m_FontData.m_LineSpacing
+      value: 1.22
       objectReference: {fileID: 0}
     - target: {fileID: 5081765330872520081, guid: 8d77fb51b9951f8479798d2e7e819f96,
         type: 3}

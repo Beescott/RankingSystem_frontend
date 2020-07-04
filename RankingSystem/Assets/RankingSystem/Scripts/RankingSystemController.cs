@@ -61,6 +61,7 @@ namespace RankingSystem
 
         #region Actions
         public Action OnRankingStyleChange = delegate { };
+        public Action OnFloatPrecisionChange = delegate { };
         #endregion
 
         private void Awake()
@@ -97,7 +98,7 @@ namespace RankingSystem
 
         public List<PlayerScore> GetPlayerScoreList()
         {
-            if (systemStyle == RankingSystemStyle.Ascending)
+            if (systemStyle == RankingSystemStyle.Descending)
                 return _playerScores;
 
             List<PlayerScore> tempList = new List<PlayerScore>(_playerScores);

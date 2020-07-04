@@ -80,10 +80,12 @@ namespace RankingSystem
         private void OnSendPlayersCallback(SocketIOEvent args)
         {
             List<PlayerScore> playerScore = new List<PlayerScore>();
-
+            
             foreach (var i in args.data.GetField("players").list)
             {
                 string name = i.GetField("_name").ToString();
+                name = name.Replace("\"", "");
+
                 float score = float.Parse(i.GetField("_score").ToString());
 
                 PlayerScore ps = new PlayerScore(name, score);

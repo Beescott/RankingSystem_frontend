@@ -49,7 +49,7 @@ namespace RankingSystem
         {
             Debug.Log("Requesting scores");
             Dictionary<string, string> data = new Dictionary<string, string>();
-            data.Add("numberPlayers", "10");
+            data.Add("numberPlayers", RankingSystemController.Instance.wantedNumberOfPlayers.ToString());
             _socketComponent.Emit("request_scores", new JSONObject(data));
         }
 
@@ -74,7 +74,7 @@ namespace RankingSystem
             ServerMessage serverMessage = JsonUtility.FromJson<ServerMessage>(args.data.ToString());
             OnServerMessage(serverMessage);
 
-            Debug.Log(serverMessage.ToString());
+            // Debug.Log(serverMessage.ToString());
         }
 
         private void OnSendPlayersCallback(SocketIOEvent args)

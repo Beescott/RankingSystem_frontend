@@ -15,6 +15,12 @@ namespace RankingSystem
 
     [RequireComponent(typeof(SocketIOComponent))]
     [RequireComponent(typeof(NetworkController))]
+    /// <summary>
+    /// The ranking system controller class allows the ranking system handling.
+    /// From the editor, you can specify the websocket URL, get informations about the last request made, -
+    /// Choose the number of players, the players order and the float precision to display.
+    /// You can finally change the ranking system style by choosing the font, the colors as well as the eventual sprites to display for each ranking
+    /// </summary>
     public class RankingSystemController : MonoBehaviour
     {
         #region Singleton
@@ -30,6 +36,8 @@ namespace RankingSystem
 
         public List<Image> primaryColorUsers;
         public List<Image> secondaryColorUsers;
+        public Color primaryColor;
+        public Color secondaryColor;
 
         public int wantedNumberOfPlayers;
 
@@ -39,6 +47,8 @@ namespace RankingSystem
         public RankingSystemStyle systemStyle;
 
         public GameObject rankElementPrefab;
+
+        public List<Sprite> rankingSprites;
         #endregion
 
         #region Private variables
@@ -47,6 +57,10 @@ namespace RankingSystem
         private Text[] _allTextInTarget;
 
         private List<PlayerScore> _playerScores;
+        #endregion
+
+        #region Actions
+        public Action OnRankingStyleChange = delegate { };
         #endregion
 
         private void Awake()
@@ -64,11 +78,13 @@ namespace RankingSystem
 
         private void Start()
         {
-
+            NetworkController.Instance.OnServerPlayersUpdate += UpdatePlayerScoreList;
+            ChangeFont();
         }
 
         public void ChangeFont()
         {
+            // For all gameobjects containing a text component from the specified targeted canvas, change its font
             _allTextInTarget = targetCanvas.GetComponentsInChildren<Text>(true);
             if (fontToUse != null)
             {
@@ -81,9 +97,9 @@ namespace RankingSystem
 
         public List<PlayerScore> GetPlayerScoreList()
         {
-            if(systemStyle == RankingSystemStyle.Ascending)
+            if (systemStyle == RankingSystemStyle.Ascending)
                 return _playerScores;
-            
+
             List<PlayerScore> tempList = new List<PlayerScore>(_playerScores);
             tempList.Reverse();
 
@@ -93,6 +109,12 @@ namespace RankingSystem
         private void UpdatePlayerScoreList(List<PlayerScore> ps)
         {
             _playerScores = ps;
+        }
+
+        public void ToggleAscendingList(bool b)
+        {
+            systemStyle = b ? RankingSystemStyle.Ascending : RankingSystemStyle.Descending;
+            OnRankingStyleChange();
         }
     }
 }

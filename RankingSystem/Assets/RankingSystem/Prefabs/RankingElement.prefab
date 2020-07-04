@@ -64,7 +64,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   m_FontData:
-    m_Font: {fileID: 12800000, guid: e72eb4120a5332444919844a0490e04b, type: 3}
+    m_Font: {fileID: 12800000, guid: 5135961a9b308ac409270b320cd1ec77, type: 3}
     m_FontSize: 14
     m_FontStyle: 0
     m_BestFit: 0
@@ -110,8 +110,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 30, y: 0}
-  m_SizeDelta: {x: 60, y: 0}
+  m_AnchoredPosition: {x: 32, y: 0}
+  m_SizeDelta: {x: 60, y: -4}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &4459604663075517791
 CanvasRenderer:
@@ -261,7 +261,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   m_FontData:
-    m_Font: {fileID: 12800000, guid: e72eb4120a5332444919844a0490e04b, type: 3}
+    m_Font: {fileID: 12800000, guid: 5135961a9b308ac409270b320cd1ec77, type: 3}
     m_FontSize: 14
     m_FontStyle: 0
     m_BestFit: 0
@@ -285,6 +285,7 @@ GameObject:
   - component: {fileID: 4459604663770426324}
   - component: {fileID: 4459604663770426322}
   - component: {fileID: 4459604663770426325}
+  - component: {fileID: 8987401536501176823}
   m_Layer: 5
   m_Name: RankingElement
   m_TagString: Untagged
@@ -308,10 +309,10 @@ RectTransform:
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
-  m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 265.5, y: -25}
-  m_SizeDelta: {x: 531, y: 50}
-  m_Pivot: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 1, y: 1}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 0, y: 60}
+  m_Pivot: {x: 0, y: 1}
 --- !u!222 &4459604663770426322
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -348,3 +349,19 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+--- !u!114 &8987401536501176823
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4459604663770426327}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 87164724eaa7d7f44a44a11900f28fa1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _background: {fileID: 4459604663139295695}
+  _name: {fileID: 4459604663150689037}
+  _score: {fileID: 4459604662870245429}
+  _rank: {fileID: 4459604663075517779}

@@ -23,6 +23,8 @@ namespace RankingSystem
         // Action event called when the server sends a message to the client
         public Action<ServerMessage> OnServerMessage = delegate { };
         public Action<List<PlayerScore>> OnServerPlayersUpdate = delegate { };
+        public Action<PlayerScore> OnServerPlayerRequest = delegate { };
+        public Action OnNullServerPlayerRequest = delegate { };
         private SocketIOComponent _socketComponent;
 
         private void Start()
@@ -39,6 +41,7 @@ namespace RankingSystem
             _socketComponent.On("event_status", OnEventStatusCallback);
             _socketComponent.On("send_scores", OnSendPlayersCallback);
             _socketComponent.On("player_removed", OnPlayerRemoved);
+            _socketComponent.On("send_player_score", OnSendPlayerScoreCallback);
         }
 
         public void SayHi()
@@ -71,6 +74,14 @@ namespace RankingSystem
             Dictionary<string, string> data = new Dictionary<string, string>();
             data.Add("playerName", playerName);
             _socketComponent.Emit("remove_player", new JSONObject(data));
+        }
+
+        public void RequestPlayerScore(string playerName)
+        {
+            Debug.Log("Requesting player score");
+            Dictionary<string, string> data = new Dictionary<string, string>();
+            data.Add("playerName", playerName);
+            _socketComponent.Emit("request_player_score", new JSONObject(data));
         }
 
         #region Callbacks
@@ -108,6 +119,22 @@ namespace RankingSystem
         private void OnPlayerRemoved(SocketIOEvent args)
         {
             RequestScores();
+        }
+
+        private void OnSendPlayerScoreCallback(SocketIOEvent args)
+        {
+            Debug.Log(args);
+            if (args.data.ToString() == "{}")
+            {
+                OnNullServerPlayerRequest();
+                return;
+            }
+
+            string name = args.data.GetField("player").GetField("_name").ToString();
+            float score = float.Parse(args.data.GetField("player").GetField("_score").ToString());
+            PlayerScore requestedPlayer = new PlayerScore(name, score);
+
+            OnServerPlayerRequest(requestedPlayer);
         }
         #endregion
     }

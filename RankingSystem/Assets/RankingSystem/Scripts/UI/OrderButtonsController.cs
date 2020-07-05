@@ -18,6 +18,12 @@ namespace RankingSystem
         private void OnEnable()
         {
             ToggleButtons();
+            AddListeners();
+        }
+
+        private void OnDisable() {
+            ascendingButton.onClick.RemoveAllListeners();
+            descendingButton.onClick.RemoveAllListeners();
         }
 
         private void ToggleButtons()
@@ -25,6 +31,17 @@ namespace RankingSystem
             bool isAscending = RankingSystemController.Instance.systemStyle == RankingSystemStyle.Ascending;
             ascendingButton.interactable = !isAscending;
             descendingButton.interactable = isAscending;
+        }
+
+        private void AddListeners()
+        {
+            ascendingButton.onClick.AddListener(() => {
+                RankingSystemController.Instance.ToggleAscendingList(true);
+            });
+
+            descendingButton.onClick.AddListener(() => {
+                RankingSystemController.Instance.ToggleAscendingList(false);
+            });
         }
     }
 

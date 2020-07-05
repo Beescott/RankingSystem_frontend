@@ -11,6 +11,7 @@ namespace RankingSystem
         [SerializeField] private List<PlayerScore> _playerScores;
 
         private List<GameObject> _scoreContainerGameObjects;
+        private bool _firstEnable = false;
 
         private void Start()
         {
@@ -21,13 +22,24 @@ namespace RankingSystem
 
         private void OnEnable()
         {
+            // Destroy previews element
+            if (!_firstEnable)
+            {
+                RankingElement[] rankingElements = GetComponentsInChildren<RankingElement>();
+                for (int i = 0; i < rankingElements.Length; i++)
+                {
+                    Destroy(rankingElements[i].gameObject);
+                }
+                _firstEnable = true;
+            }
+
             UpdateList();
         }
 
         public void UpdateList()
         {
             DestroyElements();
-            
+
             _playerScores = RankingSystemController.Instance.GetPlayerScoreList();
             List<Sprite> sprites = RankingSystemController.Instance.rankingSprites;
             _scoreContainerGameObjects = new List<GameObject>();
@@ -38,7 +50,7 @@ namespace RankingSystem
                 var newRankingElement = Instantiate(_rankingElementPrefab);
 
                 RankingElement re = newRankingElement.GetComponent<RankingElement>();
-                
+
                 Sprite rankingSprite = null;
                 int actualRank = RankingSystemController.Instance.systemStyle == RankingSystemStyle.Ascending ? _playerScores.Count - 1 - i : i;
                 if (actualRank < sprites.Count)

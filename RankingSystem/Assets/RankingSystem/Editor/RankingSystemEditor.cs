@@ -46,8 +46,7 @@ public class RankingSystemEditor : Editor
         //base.OnInspectorGUI();
 
         RankingSystemController systemController = (RankingSystemController)target;
-
-        if (_firstStart)
+        if (_firstStart && systemController.targetCanvas != null)
         {
             systemController.ChangeFont();
             _firstStart = false;
@@ -67,6 +66,13 @@ public class RankingSystemEditor : Editor
         EditorGUILayout.LabelField("Ranking system display");
         DrawUILine(Color.white, 1, 5);
         EditorGUILayout.PropertyField(_targetCanvas, new GUIContent("Targeted parent", "The transform which contains all the ranking system element (use entire canvas if you want font consistency)"));
+
+        if (systemController.targetCanvas == null)
+        {
+            EditorGUILayout.HelpBox("A target canvas must be assigned", MessageType.Warning);
+            serializedObject.ApplyModifiedProperties();
+            return;
+        }
 
         EditorStyles.label.normal.textColor = Color.red;
         EditorGUILayout.PropertyField(_requestAllPlayers, new GUIContent("Request all players", "True to request all players from database, false if you only wants the X first"));

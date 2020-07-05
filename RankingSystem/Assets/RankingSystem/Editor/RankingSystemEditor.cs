@@ -14,6 +14,7 @@ public class RankingSystemEditor : Editor
     private SerializedProperty _primaryColor;
     private SerializedProperty _secondaryUsersColor;
     private SerializedProperty _secondaryColor;
+    private SerializedProperty _requestAllPlayers;
     private SerializedProperty _wantedNumberOfPlayers;
     private SerializedProperty _floatPrecision;
     private SerializedProperty _systemStyle;
@@ -30,12 +31,14 @@ public class RankingSystemEditor : Editor
         _primaryColor = serializedObject.FindProperty("primaryColor");
         _secondaryUsersColor = serializedObject.FindProperty("secondaryColorUsers");
         _secondaryColor = serializedObject.FindProperty("secondaryColor");
+        _requestAllPlayers = serializedObject.FindProperty("requestAllPlayers");
         _wantedNumberOfPlayers = serializedObject.FindProperty("wantedNumberOfPlayers");
         _floatPrecision = serializedObject.FindProperty("floatPrecision");
         _systemStyle = serializedObject.FindProperty("systemStyle");
         _targetCanvas = serializedObject.FindProperty("targetCanvas");
         _rankingSprites = serializedObject.FindProperty("rankingSprites");
         _firstStart = true;
+        
     }
 
     public override void OnInspectorGUI()
@@ -53,17 +56,26 @@ public class RankingSystemEditor : Editor
         systemController.GetComponent<NetworkController>().hideFlags = HideFlags.HideInInspector;
         systemController.GetComponent<SocketIOComponent>().hideFlags = HideFlags.HideInInspector;
 
+        EditorGUILayout.HelpBox("Properties in red are only updated by fetching a new list", MessageType.Info);
+
         EditorGUILayout.LabelField("Server");
         DrawUILine(Color.white, 1, 5);
         EditorGUILayout.PropertyField(_url, new GUIContent("Websocket URL"));
-        EditorGUILayout.HelpBox("Last event status : " + systemController.lastEventStatus, MessageType.Info);
+        EditorGUILayout.HelpBox("Last event status : " + systemController.lastEventStatus, MessageType.None);
 
         EditorGUILayout.Space(20);
         EditorGUILayout.LabelField("Ranking system display");
         DrawUILine(Color.white, 1, 5);
         EditorGUILayout.PropertyField(_targetCanvas, new GUIContent("Targeted parent", "The transform which contains all the ranking system element (use entire canvas if you want font consistency)"));
-        EditorGUILayout.PropertyField(_wantedNumberOfPlayers, new GUIContent("Number of wanted players", "If the specified int is less or equel to 0, or if it is higher than the database's current list of player, then returns the entire array"));
-        
+
+        EditorStyles.label.normal.textColor = Color.red;
+        EditorGUILayout.PropertyField(_requestAllPlayers, new GUIContent("Request all players", "True to request all players from database, false if you only wants the X first"));
+        if (!systemController.requestAllPlayers)
+        {
+            EditorGUILayout.PropertyField(_wantedNumberOfPlayers, new GUIContent("Number of wanted players", "If the specified int is less or equel to 0, or if it is higher than the database's current list of player, then returns the entire array"));
+        } 
+        EditorStyles.label.normal.textColor = Color.black;
+
         EditorGUI.BeginChangeCheck();
         EditorGUILayout.PropertyField(_floatPrecision, new GUIContent("Float precision", "Number of digit after the comma"));
         if (EditorGUI.EndChangeCheck())

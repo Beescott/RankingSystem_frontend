@@ -39,6 +39,7 @@ namespace RankingSystem
         public Color primaryColor;
         public Color secondaryColor;
 
+        public bool requestAllPlayers = true;
         public int wantedNumberOfPlayers;
 
         [Range(0, 10)]
@@ -55,13 +56,13 @@ namespace RankingSystem
         private NetworkController _networkController;
         private SocketIOComponent _socketComponent;
         private Text[] _allTextInTarget;
-
         private List<PlayerScore> _playerScores;
         #endregion
 
         #region Actions
         public Action OnRankingStyleChange = delegate { };
         public Action OnFloatPrecisionChange = delegate { };
+        public Action OnUpdatedList = delegate { };
         #endregion
 
         private void Awake()
@@ -110,6 +111,7 @@ namespace RankingSystem
         private void UpdatePlayerScoreList(List<PlayerScore> ps)
         {
             _playerScores = ps;
+            OnUpdatedList();
         }
 
         public void ToggleAscendingList(bool b)

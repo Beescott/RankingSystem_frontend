@@ -16,6 +16,7 @@ namespace RankingSystem
         {
             RankingSystemController.Instance.OnRankingStyleChange += UpdateList;
             RankingSystemController.Instance.OnFloatPrecisionChange += UpdateList;
+            RankingSystemController.Instance.OnUpdatedList += UpdateList;
         }
 
         private void OnEnable()
@@ -40,7 +41,6 @@ namespace RankingSystem
                 
                 Sprite rankingSprite = null;
                 int actualRank = RankingSystemController.Instance.systemStyle == RankingSystemStyle.Ascending ? _playerScores.Count - 1 - i : i;
-                Debug.Log($"{playerScore.name} {actualRank}");
                 if (actualRank < sprites.Count)
                 {
                     rankingSprite = sprites[actualRank];
@@ -77,22 +77,11 @@ namespace RankingSystem
         {
             for (int i = 0; i < _playerScores.Count; i++)
             {
-                // if (i % 2 == 0)
-                //     RankingSystemController.Instance.primaryColorUsers.Remove(_scoreContainerGameObjects[i].GetComponent<Image>());
-                // else
-                //     RankingSystemController.Instance.secondaryColorUsers.Remove(_scoreContainerGameObjects[i].GetComponent<Image>());
                 Destroy(_scoreContainerGameObjects[i]);
             }
+            RankingSystemController.Instance.primaryColorUsers.Clear();
+            RankingSystemController.Instance.secondaryColorUsers.Clear();
         }
-
-        // private void CleanArray()
-        // {
-        //     for (int i = 0; i < RankingSystemController.Instance.primaryColorUsers.Count; i++)
-        //     {
-        //         if (RankingSystemController.Instance.primaryColorUsers[i] == null)
-        //             RankingSystemController.Instance.primaryColorUsers.RemoveAt(i);
-        //     }
-        // }
 
         private string GetPrecision()
         {

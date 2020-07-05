@@ -773,6 +773,7 @@ MonoBehaviour:
   secondaryColorUsers: []
   primaryColor: {r: 0.13207549, g: 0.13207549, b: 0.13207549, a: 1}
   secondaryColor: {r: 0.3773585, g: 0.3773585, b: 0.3773585, a: 1}
+  requestAllPlayers: 1
   wantedNumberOfPlayers: 0
   floatPrecision: 4
   systemStyle: 1
@@ -1022,6 +1023,11 @@ PrefabInstance:
       propertyPath: m_SizeDelta.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 5081765329274117325, guid: 8d77fb51b9951f8479798d2e7e819f96,
+        type: 3}
+      propertyPath: m_FontData.m_Font
+      value: 
+      objectReference: {fileID: 10102, guid: 0000000000000000e000000000000000, type: 0}
     - target: {fileID: 5081765329347331063, guid: 8d77fb51b9951f8479798d2e7e819f96,
         type: 3}
       propertyPath: m_AnchorMin.y
@@ -1132,6 +1138,31 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 5081765330066935882, guid: 8d77fb51b9951f8479798d2e7e819f96,
+        type: 3}
+      propertyPath: m_Text
+      value: error
+      objectReference: {fileID: 0}
+    - target: {fileID: 5081765330066935882, guid: 8d77fb51b9951f8479798d2e7e819f96,
+        type: 3}
+      propertyPath: m_Color.r
+      value: 0.59607846
+      objectReference: {fileID: 0}
+    - target: {fileID: 5081765330066935882, guid: 8d77fb51b9951f8479798d2e7e819f96,
+        type: 3}
+      propertyPath: m_Color.g
+      value: 0.27058825
+      objectReference: {fileID: 0}
+    - target: {fileID: 5081765330066935882, guid: 8d77fb51b9951f8479798d2e7e819f96,
+        type: 3}
+      propertyPath: m_Color.b
+      value: 0.29803923
+      objectReference: {fileID: 0}
+    - target: {fileID: 5081765330066935882, guid: 8d77fb51b9951f8479798d2e7e819f96,
+        type: 3}
+      propertyPath: m_FontData.m_Font
+      value: 
+      objectReference: {fileID: 10102, guid: 0000000000000000e000000000000000, type: 0}
     - target: {fileID: 5081765330066935885, guid: 8d77fb51b9951f8479798d2e7e819f96,
         type: 3}
       propertyPath: m_AnchorMin.y
@@ -1192,12 +1223,26 @@ PrefabInstance:
       propertyPath: m_SizeDelta.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 5081765330281841217, guid: 8d77fb51b9951f8479798d2e7e819f96,
+        type: 3}
+      propertyPath: m_Text
+      value: Connection error with the server
+      objectReference: {fileID: 0}
+    - target: {fileID: 5081765330281841217, guid: 8d77fb51b9951f8479798d2e7e819f96,
+        type: 3}
+      propertyPath: m_FontData.m_LineSpacing
+      value: 2.03
+      objectReference: {fileID: 0}
+    - target: {fileID: 5081765330281841217, guid: 8d77fb51b9951f8479798d2e7e819f96,
+        type: 3}
+      propertyPath: m_FontData.m_Font
+      value: 
+      objectReference: {fileID: 10102, guid: 0000000000000000e000000000000000, type: 0}
     - target: {fileID: 5081765330347153270, guid: 8d77fb51b9951f8479798d2e7e819f96,
         type: 3}
       propertyPath: m_FontData.m_Font
       value: 
-      objectReference: {fileID: 12800000, guid: 5135961a9b308ac409270b320cd1ec77,
-        type: 3}
+      objectReference: {fileID: 10102, guid: 0000000000000000e000000000000000, type: 0}
     - target: {fileID: 5081765330489193690, guid: 8d77fb51b9951f8479798d2e7e819f96,
         type: 3}
       propertyPath: m_AnchorMin.y
@@ -1228,6 +1273,11 @@ PrefabInstance:
       propertyPath: m_SizeDelta.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 5081765330505393983, guid: 8d77fb51b9951f8479798d2e7e819f96,
+        type: 3}
+      propertyPath: m_FontData.m_Font
+      value: 
+      objectReference: {fileID: 10102, guid: 0000000000000000e000000000000000, type: 0}
     - target: {fileID: 5081765330611432015, guid: 8d77fb51b9951f8479798d2e7e819f96,
         type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[2].m_Target

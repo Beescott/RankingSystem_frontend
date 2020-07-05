@@ -38,6 +38,7 @@ namespace RankingSystem
             _socketComponent.On("pong", OnPongCallback);
             _socketComponent.On("event_status", OnEventStatusCallback);
             _socketComponent.On("send_scores", OnSendPlayersCallback);
+            _socketComponent.On("player_removed", OnPlayerRemoved);
         }
 
         public void SayHi()
@@ -49,7 +50,8 @@ namespace RankingSystem
         {
             Debug.Log("Requesting scores");
             Dictionary<string, string> data = new Dictionary<string, string>();
-            data.Add("numberPlayers", RankingSystemController.Instance.wantedNumberOfPlayers.ToString());
+            int numberOfWantedPlayers = RankingSystemController.Instance.requestAllPlayers ? 0 : RankingSystemController.Instance.wantedNumberOfPlayers;
+            data.Add("numberPlayers", numberOfWantedPlayers.ToString());
             _socketComponent.Emit("request_scores", new JSONObject(data));
         }
 
@@ -61,6 +63,14 @@ namespace RankingSystem
             data.Add("score", score);
 
             _socketComponent.Emit("push_score", new JSONObject(data));
+        }
+
+        public void RemovePlayer(string playerName)
+        {
+            Debug.Log("Removing player");
+            Dictionary<string, string> data = new Dictionary<string, string>();
+            data.Add("playerName", playerName);
+            _socketComponent.Emit("remove_player", new JSONObject(data));
         }
 
         #region Callbacks
@@ -93,6 +103,11 @@ namespace RankingSystem
             }
 
             OnServerPlayersUpdate(playerScore);
+        }
+
+        private void OnPlayerRemoved(SocketIOEvent args)
+        {
+            RequestScores();
         }
         #endregion
     }

@@ -10,6 +10,7 @@ namespace RankingSystem
         [SerializeField] private Image _background;
         [SerializeField] private Text _name;
         [SerializeField] private Text _score;
+        [SerializeField] private Button _trash;
         [SerializeField] private GameObject _rank;
 
         public void Initialize(string name, string score, string rank, Sprite spriteToShow = null)
@@ -38,11 +39,20 @@ namespace RankingSystem
                 rankText.fontSize = 14;
                 rankText.alignment = TextAnchor.MiddleCenter;
             }
+
+            _trash.onClick.AddListener(() => {
+                NetworkController.Instance.RemovePlayer(_name.text);
+            });
         }
 
         public void ChangeBackgroundColor(Color c)
         {
             _background.color = c;
+        }
+
+        public void ToggleTrashIcon()
+        {
+            _trash.gameObject.SetActive(!_trash.gameObject.activeSelf);
         }
     }
 }

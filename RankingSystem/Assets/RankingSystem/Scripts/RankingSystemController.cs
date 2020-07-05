@@ -84,6 +84,9 @@ namespace RankingSystem
             ChangeFont();
         }
 
+        /// <summary>
+        /// For all text inside the target canvas, change the font to match the ranking system controller
+        /// </summary>
         public void ChangeFont()
         {
             // For all gameobjects containing a text component from the specified targeted canvas, change its font
@@ -97,6 +100,10 @@ namespace RankingSystem
             }
         }
 
+        /// <summary>
+        /// Returns the list of player score in the right order following the Ranking system style
+        /// </summary>
+        /// <returns>List of PlayerScore</returns>
         public List<PlayerScore> GetPlayerScoreList()
         {
             if (systemStyle == RankingSystemStyle.Descending)
@@ -108,12 +115,20 @@ namespace RankingSystem
             return tempList;
         }
 
+        /// <summary>
+        /// Update the player score list
+        /// </summary>
+        /// <param name="ps"></param>
         private void UpdatePlayerScoreList(List<PlayerScore> ps)
         {
             _playerScores = ps;
             OnUpdatedList();
         }
 
+        /// <summary>
+        /// Toggle in between ascending or descending list
+        /// </summary>
+        /// <param name="b"></param>
         public void ToggleAscendingList(bool b)
         {
             systemStyle = b ? RankingSystemStyle.Ascending : RankingSystemStyle.Descending;

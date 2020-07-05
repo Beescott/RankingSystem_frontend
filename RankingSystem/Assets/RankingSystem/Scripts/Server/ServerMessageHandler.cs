@@ -5,6 +5,9 @@ using UnityEngine.UI;
 
 namespace RankingSystem
 {
+    /// <summary>
+    /// Class that handles server message (eventStatus)
+    /// </summary>
     public class ServerMessageHandler : MonoBehaviour
     {
         public Text resultStatusField;

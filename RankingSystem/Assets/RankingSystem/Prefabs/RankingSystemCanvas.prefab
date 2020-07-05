@@ -893,8 +893,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 612571500d425d3498475c4d7a5f88fe, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ascendingButton: {fileID: 5081765330611432015}
-  descendingButton: {fileID: 5081765330872520081}
+  _ascendingButton: {fileID: 5081765330611432015}
+  _descendingButton: {fileID: 5081765330872520081}
 --- !u!1 &5081765329484485374
 GameObject:
   m_ObjectHideFlags: 0

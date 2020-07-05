@@ -20,12 +20,16 @@ namespace RankingSystem
         }
         #endregion
 
-        // Action event called when the server sends a message to the client
+        #region Action event
         public Action<ServerMessage> OnServerMessage = delegate { };
         public Action<List<PlayerScore>> OnServerPlayersUpdate = delegate { };
         public Action<PlayerScore> OnServerPlayerRequest = delegate { };
         public Action OnNullServerPlayerRequest = delegate { };
+        #endregion
+
+        #region Private variables
         private SocketIOComponent _socketComponent;
+        #endregion
 
         private void Start()
         {
@@ -33,6 +37,9 @@ namespace RankingSystem
             ConnectToServer();
         }
 
+        /// <summary>
+        /// Connect to the server and listen for all the needed callbacks
+        /// </summary>
         private void ConnectToServer()
         {
             _socketComponent.Connect();
@@ -44,23 +51,32 @@ namespace RankingSystem
             _socketComponent.On("send_player_score", OnSendPlayerScoreCallback);
         }
 
+        /// <summary>
+        /// Ping
+        /// </summary>
         public void SayHi()
         {
             _socketComponent.Emit("ping");
         }
 
+        /// <summary>
+        /// Request the PlayerScore list
+        /// </summary>
         public void RequestScores()
         {
-            Debug.Log("Requesting scores");
             Dictionary<string, string> data = new Dictionary<string, string>();
             int numberOfWantedPlayers = RankingSystemController.Instance.requestAllPlayers ? 0 : RankingSystemController.Instance.wantedNumberOfPlayers;
             data.Add("numberPlayers", numberOfWantedPlayers.ToString());
             _socketComponent.Emit("request_scores", new JSONObject(data));
         }
 
+        /// <summary>
+        /// Push a score into the server or update it if the player already exists
+        /// </summary>
+        /// <param name="playerName"></param>
+        /// <param name="score"></param>
         public void PushScore(string playerName, string score)
         {
-            Debug.Log("Pushing score");
             Dictionary<string, string> data = new Dictionary<string, string>();
             data.Add("name", playerName);
             data.Add("score", score);
@@ -68,36 +84,52 @@ namespace RankingSystem
             _socketComponent.Emit("push_score", new JSONObject(data));
         }
 
+        /// <summary>
+        /// Remove a player from the database
+        /// </summary>
+        /// <param name="playerName"></param>
         public void RemovePlayer(string playerName)
         {
-            Debug.Log("Removing player");
             Dictionary<string, string> data = new Dictionary<string, string>();
             data.Add("playerName", playerName);
             _socketComponent.Emit("remove_player", new JSONObject(data));
         }
 
+        /// <summary>
+        /// Request the score of a given player
+        /// </summary>
+        /// <param name="playerName"></param>
         public void RequestPlayerScore(string playerName)
         {
-            Debug.Log("Requesting player score");
             Dictionary<string, string> data = new Dictionary<string, string>();
             data.Add("playerName", playerName);
             _socketComponent.Emit("request_player_score", new JSONObject(data));
         }
 
         #region Callbacks
+        /// <summary>
+        /// Pong
+        /// </summary>
+        /// <param name="args"></param>
         private void OnPongCallback(SocketIOEvent args)
         {
             Debug.Log("Pong");
         }
 
+        /// <summary>
+        /// Send the server message to all listeners of OnServerMessage
+        /// </summary>
+        /// <param name="args"></param>
         private void OnEventStatusCallback(SocketIOEvent args)
         {
             ServerMessage serverMessage = JsonUtility.FromJson<ServerMessage>(args.data.ToString());
             OnServerMessage(serverMessage);
-
-            // Debug.Log(serverMessage.ToString());
         }
 
+        /// <summary>
+        /// Send list of player to all listeners of OnServerPlayersUpdate
+        /// </summary>
+        /// <param name="args"></param>
         private void OnSendPlayersCallback(SocketIOEvent args)
         {
             List<PlayerScore> playerScore = new List<PlayerScore>();
@@ -116,14 +148,21 @@ namespace RankingSystem
             OnServerPlayersUpdate(playerScore);
         }
 
+        /// <summary>
+        /// Update the list when removing a player
+        /// </summary>
+        /// <param name="args"></param>
         private void OnPlayerRemoved(SocketIOEvent args)
         {
             RequestScores();
         }
 
+        /// <summary>
+        /// Send a player to all listeners of OnServerPlayerRequest
+        /// </summary>
+        /// <param name="args"></param>
         private void OnSendPlayerScoreCallback(SocketIOEvent args)
         {
-            Debug.Log(args);
             if (args.data.ToString() == "{}")
             {
                 OnNullServerPlayerRequest();

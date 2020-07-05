@@ -33,9 +33,13 @@ namespace RankingSystem
                 _firstEnable = true;
             }
 
+            // Update list every time the object is active
             UpdateList();
         }
 
+        /// <summary>
+        /// Destroy all previous elements and replace them with the new fetched list
+        /// </summary>
         public void UpdateList()
         {
             DestroyElements();
@@ -52,22 +56,24 @@ namespace RankingSystem
                 RankingElement re = newRankingElement.GetComponent<RankingElement>();
 
                 Sprite rankingSprite = null;
+                // Actual rank is the rank of the player, no matter if the list is ascending or descending
                 int actualRank = RankingSystemController.Instance.systemStyle == RankingSystemStyle.Ascending ? _playerScores.Count - 1 - i : i;
                 if (actualRank < sprites.Count)
                 {
                     rankingSprite = sprites[actualRank];
                 }
 
+                // Initialize the new ranking element
                 re.Initialize(playerScore.name, playerScore.score.ToString(GetPrecision()), (actualRank + 1).ToString(), rankingSprite);
 
+                // Change its background to match the ranking system controller colors
                 Color backgroundColor = i % 2 == 0 ? RankingSystemController.Instance.primaryColor : RankingSystemController.Instance.secondaryColor;
                 re.ChangeBackgroundColor(backgroundColor);
 
+                // Set new ranking element to this in order to fit the vertical layout group
                 newRankingElement.transform.SetParent(transform);
+                // Fix its scale (sometime the scale is messed up for some reason?)
                 newRankingElement.transform.localScale = Vector3.one;
-
-                Vector2 size = GetComponent<RectTransform>().sizeDelta;
-                GetComponent<RectTransform>().sizeDelta = new Vector2(size.x, _playerScores.Count * _rankingElementPrefab.GetComponent<RectTransform>().sizeDelta.y);
 
                 _scoreContainerGameObjects.Add(newRankingElement);
 
@@ -77,12 +83,15 @@ namespace RankingSystem
                 else
                     RankingSystemController.Instance.secondaryColorUsers.Add(newRankingElement.GetComponentsInChildren<Image>()[1]);
             }
+
+            // Change the size of the parent to make it match the children counts
+            Vector2 size = GetComponent<RectTransform>().sizeDelta;
+            GetComponent<RectTransform>().sizeDelta = new Vector2(size.x, _playerScores.Count * _rankingElementPrefab.GetComponent<RectTransform>().sizeDelta.y);
         }
 
         private void OnDisable()
         {
             DestroyElements();
-            // CleanArray();
         }
 
         private void DestroyElements()

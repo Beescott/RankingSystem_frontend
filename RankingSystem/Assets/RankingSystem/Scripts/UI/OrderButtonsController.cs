@@ -7,8 +7,8 @@ namespace RankingSystem
 {
     public class OrderButtonsController : MonoBehaviour
     {
-        public Button ascendingButton;
-        public Button descendingButton;
+        [SerializeField] private Button _ascendingButton;
+        [SerializeField] private Button _descendingButton;
 
         private void Start()
         {
@@ -22,24 +22,24 @@ namespace RankingSystem
         }
 
         private void OnDisable() {
-            ascendingButton.onClick.RemoveAllListeners();
-            descendingButton.onClick.RemoveAllListeners();
+            _ascendingButton.onClick.RemoveAllListeners();
+            _descendingButton.onClick.RemoveAllListeners();
         }
 
         private void ToggleButtons()
         {
             bool isAscending = RankingSystemController.Instance.systemStyle == RankingSystemStyle.Ascending;
-            ascendingButton.interactable = !isAscending;
-            descendingButton.interactable = isAscending;
+            _ascendingButton.interactable = !isAscending;
+            _descendingButton.interactable = isAscending;
         }
 
         private void AddListeners()
         {
-            ascendingButton.onClick.AddListener(() => {
+            _ascendingButton.onClick.AddListener(() => {
                 RankingSystemController.Instance.ToggleAscendingList(true);
             });
 
-            descendingButton.onClick.AddListener(() => {
+            _descendingButton.onClick.AddListener(() => {
                 RankingSystemController.Instance.ToggleAscendingList(false);
             });
         }

@@ -7,11 +7,12 @@ namespace RankingSystem
 {
     public class RankingElementContainer : MonoBehaviour
     {
-        [SerializeField] private GameObject _rankingElementPrefab;
-        [SerializeField] private List<PlayerScore> _playerScores;
+        [SerializeField] private GameObject _rankingElementPrefab = null;
+        [SerializeField] private List<PlayerScore> _playerScores = null;
 
         private List<GameObject> _scoreContainerGameObjects;
         private bool _firstEnable = false;
+        private int _currentPageIndex = 0;
 
         private void Start()
         {
@@ -22,6 +23,7 @@ namespace RankingSystem
 
         private void OnEnable()
         {
+            _scoreContainerGameObjects = new List<GameObject>();
             // Destroy previews element
             if (!_firstEnable)
             {
@@ -48,7 +50,9 @@ namespace RankingSystem
             List<Sprite> sprites = RankingSystemController.Instance.rankingSprites;
             _scoreContainerGameObjects = new List<GameObject>();
 
-            for (int i = 0; i < _playerScores.Count; i++)
+            int numberOfPlayersToDisplay = RankingSystemController.Instance.displayAmountPlayersPerPage ? RankingSystemController.Instance.numberOfPlayersPerPage : _playerScores.Count;
+
+            for (int i = numberOfPlayersToDisplay * _currentPageIndex; i < Mathf.Min(numberOfPlayersToDisplay * _currentPageIndex + numberOfPlayersToDisplay, _playerScores.Count); i++)
             {
                 var playerScore = _playerScores[i];
                 var newRankingElement = Instantiate(_rankingElementPrefab);
@@ -86,7 +90,7 @@ namespace RankingSystem
 
             // Change the size of the parent to make it match the children counts
             Vector2 size = GetComponent<RectTransform>().sizeDelta;
-            GetComponent<RectTransform>().sizeDelta = new Vector2(size.x, _playerScores.Count * _rankingElementPrefab.GetComponent<RectTransform>().sizeDelta.y);
+            GetComponent<RectTransform>().sizeDelta = new Vector2(size.x, numberOfPlayersToDisplay * _rankingElementPrefab.GetComponent<RectTransform>().sizeDelta.y);
         }
 
         private void OnDisable()
@@ -96,7 +100,11 @@ namespace RankingSystem
 
         private void DestroyElements()
         {
-            for (int i = 0; i < _playerScores.Count; i++)
+            // int numberOfPlayersToDisplay = RankingSystemController.Instance.displayAmountPlayersPerPage ? RankingSystemController.Instance.numberOfPlayersPerPage : _playerScores.Count;
+            if (_scoreContainerGameObjects.Count == 0)
+                return;
+
+            for (int i = 0; i < _scoreContainerGameObjects.Count; i++)
             {
                 Destroy(_scoreContainerGameObjects[i]);
             }
@@ -107,6 +115,25 @@ namespace RankingSystem
         private string GetPrecision()
         {
             return "F" + RankingSystemController.Instance.floatPrecision.ToString();
+        }
+
+        public void NextPage()
+        {
+            int numberOfPlayersPerPage = RankingSystemController.Instance.numberOfPlayersPerPage;
+            if (!RankingSystemController.Instance.displayAmountPlayersPerPage || _currentPageIndex >= (_playerScores.Count - 1) / numberOfPlayersPerPage)
+                return;
+
+            _currentPageIndex++;
+            UpdateList();
+        }
+
+        public void PreviousPage()
+        {
+            if (!RankingSystemController.Instance.displayAmountPlayersPerPage || _currentPageIndex == 0)
+                return;
+
+            _currentPageIndex--;
+            UpdateList();
         }
     }
 }

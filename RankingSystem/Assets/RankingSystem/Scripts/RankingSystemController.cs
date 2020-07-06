@@ -50,6 +50,8 @@ namespace RankingSystem
         public GameObject rankElementPrefab;
 
         public List<Sprite> rankingSprites;
+        public bool displayAmountPlayersPerPage;
+        public int numberOfPlayersPerPage;
         #endregion
 
         #region Private variables

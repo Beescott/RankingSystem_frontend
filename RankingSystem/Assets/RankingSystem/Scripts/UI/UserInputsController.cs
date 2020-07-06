@@ -8,9 +8,9 @@ namespace RankingSystem
 
     public class UserInputsController : MonoBehaviour
     {
-        [SerializeField] private InputField userID;
-        [SerializeField] private InputField score;
-        [SerializeField] private Button pushScoreButton;
+        [SerializeField] private InputField userID = null;
+        [SerializeField] private InputField score = null;
+        [SerializeField] private Button pushScoreButton = null;
 
         private void Start()
         {

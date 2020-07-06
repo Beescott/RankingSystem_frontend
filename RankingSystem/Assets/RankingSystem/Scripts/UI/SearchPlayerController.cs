@@ -7,10 +7,10 @@ namespace RankingSystem
 {
     public class SearchPlayerController : MonoBehaviour
     {
-        [SerializeField] private InputField _playerInputField;
-        [SerializeField] private Button _searchButton;
-        [SerializeField] private Text _playerNameText;
-        [SerializeField] private Text _playerScoreText;
+        [SerializeField] private InputField _playerInputField = null;
+        [SerializeField] private Button _searchButton = null;
+        [SerializeField] private Text _playerNameText = null;
+        [SerializeField] private Text _playerScoreText = null;
 
         private void Start()
         {

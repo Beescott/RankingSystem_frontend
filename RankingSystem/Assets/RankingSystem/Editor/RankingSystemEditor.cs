@@ -20,6 +20,8 @@ public class RankingSystemEditor : Editor
     private SerializedProperty _systemStyle;
     private SerializedProperty _targetCanvas;
     private SerializedProperty _rankingSprites;
+    private SerializedProperty  _displayAmountPlayersPerPage;
+    private SerializedProperty _numberOfPlayersPerPage;
 
     private bool _firstStart;
     private Color _textColor;
@@ -38,6 +40,9 @@ public class RankingSystemEditor : Editor
         _systemStyle = serializedObject.FindProperty("systemStyle");
         _targetCanvas = serializedObject.FindProperty("targetCanvas");
         _rankingSprites = serializedObject.FindProperty("rankingSprites");
+        _displayAmountPlayersPerPage = serializedObject.FindProperty("displayAmountPlayersPerPage");
+        _numberOfPlayersPerPage = serializedObject.FindProperty("numberOfPlayersPerPage");
+
         _firstStart = true;
         _textColor = !EditorGUIUtility.isProSkin ? new Color32(14, 14, 14, 255) : new Color32(194, 194, 194, 255);
     }
@@ -82,6 +87,18 @@ public class RankingSystemEditor : Editor
             EditorGUILayout.PropertyField(_wantedNumberOfPlayers, new GUIContent("Number of wanted players", "If the specified int is less or equel to 0, or if it is higher than the database's current list of player, then returns the entire array"));
         }
         EditorStyles.label.normal.textColor = _textColor;
+
+        EditorGUI.BeginChangeCheck();
+        EditorGUILayout.PropertyField(_displayAmountPlayersPerPage, new GUIContent("Display players in pages", "True to only display a specified amount of players per page"));
+        if (systemController.displayAmountPlayersPerPage)
+        {
+               EditorGUILayout.PropertyField(_numberOfPlayersPerPage, new GUIContent("Number of players per page"));
+        }
+        if( EditorGUI.EndChangeCheck())
+        {
+            serializedObject.ApplyModifiedProperties();
+            systemController.OnUpdatedList();
+        }
 
         EditorGUI.BeginChangeCheck();
         EditorGUILayout.PropertyField(_floatPrecision, new GUIContent("Float precision", "Number of digit after the comma"));

@@ -7,8 +7,8 @@ namespace RankingSystem
 {
     public class OrderButtonsController : MonoBehaviour
     {
-        [SerializeField] private Button _ascendingButton;
-        [SerializeField] private Button _descendingButton;
+        [SerializeField] private Button _ascendingButton = null;
+        [SerializeField] private Button _descendingButton = null;
 
         private void Start()
         {

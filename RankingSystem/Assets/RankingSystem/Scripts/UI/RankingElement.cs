@@ -7,11 +7,11 @@ namespace RankingSystem
 {
     public class RankingElement : MonoBehaviour
     {
-        [SerializeField] private Image _background;
-        [SerializeField] private Text _name;
-        [SerializeField] private Text _score;
-        [SerializeField] private Button _trash;
-        [SerializeField] private GameObject _rank;
+        [SerializeField] private Image _background = null;
+        [SerializeField] private Text _name = null;
+        [SerializeField] private Text _score = null;
+        [SerializeField] private Button _trash = null;
+        [SerializeField] private GameObject _rank = null;
 
         /// <summary>
         /// Create a gameobject containing all players information

@@ -22,6 +22,7 @@ public class RankingSystemEditor : Editor
     private SerializedProperty _rankingSprites;
 
     private bool _firstStart;
+    private Color _textColor;
 
     private void OnEnable()
     {
@@ -38,7 +39,7 @@ public class RankingSystemEditor : Editor
         _targetCanvas = serializedObject.FindProperty("targetCanvas");
         _rankingSprites = serializedObject.FindProperty("rankingSprites");
         _firstStart = true;
-        
+        _textColor = !EditorGUIUtility.isProSkin ? new Color32(14, 14, 14, 255) : new Color32(194, 194, 194, 255);
     }
 
     public override void OnInspectorGUI()
@@ -79,8 +80,8 @@ public class RankingSystemEditor : Editor
         if (!systemController.requestAllPlayers)
         {
             EditorGUILayout.PropertyField(_wantedNumberOfPlayers, new GUIContent("Number of wanted players", "If the specified int is less or equel to 0, or if it is higher than the database's current list of player, then returns the entire array"));
-        } 
-        EditorStyles.label.normal.textColor = Color.black;
+        }
+        EditorStyles.label.normal.textColor = _textColor;
 
         EditorGUI.BeginChangeCheck();
         EditorGUILayout.PropertyField(_floatPrecision, new GUIContent("Float precision", "Number of digit after the comma"));

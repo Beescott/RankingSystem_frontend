@@ -34,7 +34,6 @@ namespace RankingSystem
                 }
                 _firstEnable = true;
             }
-
             // Update list every time the object is active
             UpdateList();
         }
@@ -101,13 +100,23 @@ namespace RankingSystem
         private void DestroyElements()
         {
             // int numberOfPlayersToDisplay = RankingSystemController.Instance.displayAmountPlayersPerPage ? RankingSystemController.Instance.numberOfPlayersPerPage : _playerScores.Count;
-            if (_scoreContainerGameObjects.Count == 0)
-                return;
+            // if (_scoreContainerGameObjects.Count == 0)
+            //     return;
 
-            for (int i = 0; i < _scoreContainerGameObjects.Count; i++)
+            RankingElement[] rankingElements = GetComponentsInChildren<RankingElement>();
+            for (int i = 0; i < rankingElements.Length; i++)
             {
-                Destroy(_scoreContainerGameObjects[i]);
+                Destroy(rankingElements[i].gameObject);
             }
+
+            _scoreContainerGameObjects.Clear();
+
+            // for (int i = 0; i < _scoreContainerGameObjects.Count; i++)
+            // {
+            //     Destroy(_scoreContainerGameObjects[i]);
+            // }
+            // _scoreContainerGameObjects.Clear();
+
             RankingSystemController.Instance.primaryColorUsers.Clear();
             RankingSystemController.Instance.secondaryColorUsers.Clear();
         }

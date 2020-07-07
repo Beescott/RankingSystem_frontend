@@ -151,6 +151,18 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &5571733 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 6325648955390354040, guid: 8d77fb51b9951f8479798d2e7e819f96,
+    type: 3}
+  m_PrefabInstance: {fileID: 1729279731}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!224 &39264157 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 5081765330992740402, guid: 8d77fb51b9951f8479798d2e7e819f96,
@@ -339,6 +351,16 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8928336397659738970, guid: 534cb8666fa5fd640bd33f4304182773,
         type: 3}
+      propertyPath: primaryColorUsers.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8928336397659738970, guid: 534cb8666fa5fd640bd33f4304182773,
+        type: 3}
+      propertyPath: secondaryColorUsers.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8928336397659738970, guid: 534cb8666fa5fd640bd33f4304182773,
+        type: 3}
       propertyPath: targetCanvas
       value: 
       objectReference: {fileID: 39264157}
@@ -352,6 +374,46 @@ PrefabInstance:
       propertyPath: numberOfPlayersPerPage
       value: 5
       objectReference: {fileID: 0}
+    - target: {fileID: 8928336397659738970, guid: 534cb8666fa5fd640bd33f4304182773,
+        type: 3}
+      propertyPath: primaryColorUsers.Array.data[0]
+      value: 
+      objectReference: {fileID: 1479851468}
+    - target: {fileID: 8928336397659738970, guid: 534cb8666fa5fd640bd33f4304182773,
+        type: 3}
+      propertyPath: primaryColor.r
+      value: 0.6320754
+      objectReference: {fileID: 0}
+    - target: {fileID: 8928336397659738970, guid: 534cb8666fa5fd640bd33f4304182773,
+        type: 3}
+      propertyPath: primaryColor.g
+      value: 0.6320754
+      objectReference: {fileID: 0}
+    - target: {fileID: 8928336397659738970, guid: 534cb8666fa5fd640bd33f4304182773,
+        type: 3}
+      propertyPath: primaryColor.b
+      value: 0.6320754
+      objectReference: {fileID: 0}
+    - target: {fileID: 8928336397659738970, guid: 534cb8666fa5fd640bd33f4304182773,
+        type: 3}
+      propertyPath: secondaryColor.r
+      value: 0.29803923
+      objectReference: {fileID: 0}
+    - target: {fileID: 8928336397659738970, guid: 534cb8666fa5fd640bd33f4304182773,
+        type: 3}
+      propertyPath: secondaryColor.g
+      value: 0.29803923
+      objectReference: {fileID: 0}
+    - target: {fileID: 8928336397659738970, guid: 534cb8666fa5fd640bd33f4304182773,
+        type: 3}
+      propertyPath: secondaryColor.b
+      value: 0.29803923
+      objectReference: {fileID: 0}
+    - target: {fileID: 8928336397659738970, guid: 534cb8666fa5fd640bd33f4304182773,
+        type: 3}
+      propertyPath: secondaryColorUsers.Array.data[0]
+      value: 
+      objectReference: {fileID: 5571733}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 534cb8666fa5fd640bd33f4304182773, type: 3}
 --- !u!1 &1086089600
@@ -450,6 +512,18 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1479851468 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 5293503306580846423, guid: 8d77fb51b9951f8479798d2e7e819f96,
+    type: 3}
+  m_PrefabInstance: {fileID: 1729279731}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &1729279731
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -781,6 +855,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: RankingSystemCanvas
+      objectReference: {fileID: 0}
+    - target: {fileID: 5081765331180583336, guid: 8d77fb51b9951f8479798d2e7e819f96,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5293503308118011212, guid: 8d77fb51b9951f8479798d2e7e819f96,
         type: 3}

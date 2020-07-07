@@ -45,11 +45,13 @@ public class RankingSystemEditor : Editor
 
         _firstStart = true;
         _textColor = !EditorGUIUtility.isProSkin ? new Color32(14, 14, 14, 255) : new Color32(194, 194, 194, 255);
+        serializedObject.ApplyModifiedProperties();
     }
 
     public override void OnInspectorGUI()
     {
         //base.OnInspectorGUI();
+        serializedObject.Update();
 
         RankingSystemController systemController = (RankingSystemController)target;
         if (_firstStart && systemController.targetCanvas != null)
@@ -155,6 +157,8 @@ public class RankingSystemEditor : Editor
                 if (image != null)
                     image.color = systemController.secondaryColor;
             }
+
+            serializedObject.ApplyModifiedProperties();
         }
 
         EditorGUILayout.PropertyField(_rankingSprites, new GUIContent("Ranking sprites", "(optional) Sprites to display instead of numbers. Put them from first to last order"));
